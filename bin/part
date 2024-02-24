@@ -12,11 +12,11 @@ if ! which bc > /dev/null 2>&1;then
 fi
 
 set --
-disks=$(ls /sys/class/block/ | grep -v -E 'hd[a-z][1-9]|sd[a-z][1-9]|nvme[a-z][1-9] |dm-[0-9]|loop[0-9]|sr[0-9]|fd[0-9]|ram[0-9]') 
-for disk in ${disks}; do
-  size=$(head /sys/class/block/"${disk}"/size)
+parts=$(ls /sys/class/block/ | grep -E 'hd[a-z][1-9]|sd[a-z][1-9]|nvme[a-z][1-9]|fd[0-9]') 
+for part in ${parts}; do
+  size=$(head /sys/class/block/"${part}"/size)
   size_gb=$(echo "${size} / 2 / 1024 / 1024" | bc)
-  out="/dev/${disk};${size_gb}"
+  out="/dev/${part};${size_gb}"
   set -- "$@" $out
 done
 
