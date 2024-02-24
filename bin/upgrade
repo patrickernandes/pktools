@@ -1,0 +1,25 @@
+#!/usr/bin/env dash
+#
+# AUTOR: PK Ernandes
+# EMAIL: suporte@ernandes.info
+#
+#
+
+
+if [ -f "/etc/os-release" ]; then
+  . /etc/os-release
+  if [ "$ID" = "debian" -o "$ID" = "ubuntu" ]; then 
+    if [ "$(id -u)" -ne 0 ]; then    
+      sudo apt upgrade
+    else
+      apt upgrade
+    fi  
+  else
+    echo " error - linux system not support 'apt' tool!\n"
+  fi
+else
+  echo " error - file '/etc/os-release' not found!\n"
+fi
+
+      
+# vim:set ts=2 sts=2 sw=2 et ft=sh:

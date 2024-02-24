@@ -1,0 +1,20 @@
+#
+#
+# AUTOR: PK Ernandes
+# EMAIL: suporte@ernandes.info
+#
+#
+
+alias l='ls -lh'
+alias la='ls -lha'
+alias lt='ls -lhtr'
+alias cls='clear'
+alias del='rm'
+alias g='grep -v -E "^#|^$"'
+alias dd='dd status=progress'
+alias dmesg='dmesg -T'
+alias log='less +G /var/log/messages'
+alias alert='grep -i -E 'error|warn|crit|alert' /var/log/messages | less +G'
+alias lv='lvs -a -o +devices'
+alias sy='systemctl'
+alias do='docker'

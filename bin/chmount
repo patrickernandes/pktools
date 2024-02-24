@@ -1,0 +1,30 @@
+#!/usr/bin/env dash
+#
+# AUTOR: PK Ernandes
+# EMAIL: suporte@ernandes.info
+#
+#
+
+
+if mountpoint -q /mnt; then 
+  if [ "$(id -u)" -ne 0 ]; then    
+    sudo mount -t proc /proc /mnt/proc
+    sudo mount -o bind /dev /mnt/dev
+    sudo mount -o bind /dev/pts /mnt/dev/pts
+    sudo mount -o bind /sys /mnt/sys
+    sudo mount -t tmpfs tmpfs /mnt/run
+    LANG=C.UTF-8 sudo chroot /mnt /bin/bash
+  else
+    mount -t proc /proc /mnt/proc
+    mount -o bind /dev /mnt/dev
+    mount -o bind /dev/pts /mnt/dev/pts
+    mount -o bind /sys /mnt/sys
+    mount -t tmpfs tmpfs /mnt/run
+    LANG=C.UTF-8 chroot /mnt /bin/bash
+  fi  
+else
+  echo " error - nenhum volume montado em '/mnt'!\n"
+fi
+
+      
+# vim:set ts=2 sts=2 sw=2 et ft=sh:

@@ -1,0 +1,46 @@
+#!/usr/bin/env dash
+#
+# AUTOR: PK Ernandes
+# EMAIL: suporte@ernandes.info
+#
+#
+
+
+if mountpoint -q /mnt; then 
+  if [ "$(id -u)" -ne 0 ]; then
+    if mountpoint -q /mnt/boot/efi; then
+      sudo umount /mnt/boot/efi
+    fi
+
+    if mountpoint -q /mnt/boot; then
+      sudo umount /mnt/boot
+    fi
+    
+    sudo umount /mnt/run
+    sudo umount /mnt/sys
+    sudo umount /mnt/dev/pts
+    sudo umount /mnt/dev
+    sudo umount /mnt/proc
+    sudo umount /mnt
+  else
+    if mountpoint -q /mnt/boot/efi; then
+      umount /mnt/boot/efi
+    fi
+
+    if mountpoint -q /mnt/boot; then
+      umount /mnt/boot
+    fi
+    
+    umount /mnt/run
+    umount /mnt/sys
+    umount /mnt/dev/pts
+    umount /mnt/dev
+    umount /mnt/proc
+    umount /mnt
+  fi  
+else
+  echo " error - nenhum volume montado em '/mnt'!\n"
+fi
+
+      
+# vim:set ts=2 sts=2 sw=2 et ft=sh:
