@@ -18,7 +18,7 @@ if [ -f "/etc/os-release" ]; then
     echo " error - linux system not support 'apt' tool!\n"
   fi
 else
-   echo " error - file '/etc/os-release' not found!\n"
+  echo " error - file '/etc/os-release' not found!\n"
 fi
 
       

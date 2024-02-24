@@ -1,0 +1,26 @@
+#!/usr/bin/env dash
+#
+# AUTOR: PK Ernandes
+# EMAIL: suporte@ernandes.info
+#
+#
+
+
+if ! which bc > /dev/null 2>&1;then
+  echo " error - command 'bc' not found!\n"
+  exit 1
+fi
+
+set --
+disks=$(ls /sys/class/block/ | grep -v -E 'sd[a-z][1-9]|dm-[0-9]|loop[0-9]|sr[0-9]|fd[0-9]|ram[0-9]') 
+for disk in ${disks}; do
+  size=$(head /sys/class/block/"${disk}"/size)
+  size_gb=$(echo "${size} / 2 / 1024 / 1024" | bc)
+  out="/dev/${disk};${size_gb}"
+  set -- "$@" $out
+done
+
+printf "%s\n" "----;---------" "${@}" | column -t -s';' --table-columns 'NAME,VALUE(GB)'; echo
+
+      
+# vim:set ts=2 sts=2 sw=2 et ft=sh:
